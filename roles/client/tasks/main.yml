@@ -1,0 +1,77 @@
+---
+# tasks file for client
+- name: setup local directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ tmp_location }}"
+    - ~/src/k8s
+    - ~/.kube
+    - ~/.local/share/bash-completion/completions
+
+- name: download kubectl
+  become: yes
+  get_url:
+    url: https://dl.k8s.io/release/{{ version.kubectl }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    owner: root
+    group: root
+    mode: 0755
+
+- name: update profile
+  blockinfile:
+    path: ~/.profile
+    block: |
+        export KUBECONFIG=~/.kube/k3s.yaml
+
+- name: download helm archive
+  get_url:
+    url: https://get.helm.sh/helm-{{ version.helm }}-linux-amd64.tar.gz
+    dest: "{{ tmp_location }}"
+
+- name: extract helm
+  become: yes
+  unarchive:
+    src: "{{ tmp_location }}/helm-{{ version.helm }}-linux-amd64.tar.gz"
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    remote_src: yes
+    extra_opts:
+      - --strip-components=1
+      - linux-amd64/helm
+
+- name: download kubeconform archive
+  get_url:
+    url: https://github.com/yannh/kubeconform/releases/download/{{ version.kubeconform }}/kubeconform-linux-amd64.tar.gz
+    dest: "{{ tmp_location }}"
+
+- name: extract kubeconform
+  become: yes
+  unarchive:
+    src: "{{ tmp_location }}/kubeconform-linux-amd64.tar.gz"
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    remote_src: yes
+    extra_opts:
+      - kubeconform
+
+- name: run kubectl completion
+  shell: kubectl completion bash > ~/.local/share/bash-completion/completions/kubectl
+  args:
+    creates: ~/.local/share/bash-completion/completions/kubectl
+
+- name: install packages
+  become: yes
+  package: name={{ item }} state=present
+  with_items:
+    - haproxy
+
+- name: push haproxy.cfg
+  become: yes
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: start haproxy service

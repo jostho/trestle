@@ -1,0 +1,35 @@
+---
+# tasks file for common
+- name: setup local directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ tmp_location }}"
+
+- copy:
+    content: "{{ ansible_version }}"
+    dest: "{{ tmp_location }}/ansible_version.json"
+
+- name: install packages
+  become: yes
+  package: name={{ item }} state=present
+  with_items:
+    - jq
+    - tree
+    - sysstat
+
+- name: remove snaps
+  become: yes
+  snap: name={{ item }} state=absent
+  with_items:
+    - lxd
+    - core18
+    - snapd
+
+- name: enable sysstat
+  become: yes
+  replace:
+    path: /etc/default/sysstat
+    regexp: 'ENABLED="false"'
+    replace: 'ENABLED="true"'

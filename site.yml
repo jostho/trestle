@@ -1,0 +1,38 @@
+---
+## setup k3s cluster
+
+# all
+- hosts: all
+
+  roles:
+  - common
+
+  tags:
+  - common
+
+# client
+- hosts: client
+
+  roles:
+  - client
+
+  tags:
+  - client
+
+# master
+- hosts: master
+
+  roles:
+  - master
+
+  tags:
+  - master
+
+# worker
+- hosts: worker
+
+  roles:
+  - worker
+
+  tags:
+  - worker

@@ -1,0 +1,33 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    logs:
+      access:
+        # enable access logs
+        enabled: true
+        fields:
+          # keep headers
+          headers:
+            defaultmode: keep
+    # turn off global args
+    globalArguments:
+      - "--global.checknewversion=false"
+      - "--global.sendanonymoususage=false"
+    # enable XFF
+    additionalArguments:
+      - "--entrypoints.web.forwardedheaders.insecure"
+    nodeSelector:
+      # run on worker
+      role: worker
+    service:
+      spec:
+        # preserve client ip
+        externalTrafficPolicy: Local
+    ports:
+      traefik:
+        # expose the traefik port
+        expose: true
