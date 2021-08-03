@@ -31,5 +31,7 @@
 
 - name: create k3s systemd service file
   become: yes
-  copy: src=k3s-agent.service dest=/etc/systemd/system/
+  copy:
+    src: k3s-agent.service
+    dest: /etc/systemd/system/
   notify: start k3s-agent service

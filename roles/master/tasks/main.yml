@@ -19,7 +19,9 @@
 
 - name: create traefik-helm-chart-config.yaml
   become: yes
-  copy: src=traefik-helm-chart-config.yaml dest=/var/lib/rancher/k3s/server/manifests/
+  copy:
+    src: traefik-helm-chart-config.yaml
+    dest: /var/lib/rancher/k3s/server/manifests/
 
 - name: create k3s config.yaml
   become: yes
@@ -36,5 +38,7 @@
 
 - name: create k3s systemd service file
   become: yes
-  copy: src=k3s.service dest=/etc/systemd/system/
+  copy:
+    src: k3s.service
+    dest: /etc/systemd/system/
   notify: start k3s service
