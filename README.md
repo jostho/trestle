@@ -9,31 +9,22 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) clust
 * python 3.9
 * ansible 2.9
 
-## Setup
+## VM
 
 Create `Ubuntu 20.04 LTS` VMs on local using `virt-install`. Update `hosts` file with the IPs of the VMs.
 
-Create a `~/.ansible.cfg` config file, with the below contents
-
-    [defaults]
-    host_key_checking = False
-    retry_files_enabled = False
-    callback_whitelist = profile_tasks
-    [ssh_connection]
-    pipelining = True
+## Cluster
 
 Check ansible connectivity to the hosts
 
-    ansible-playbook -i hosts --list-hosts site.yml
-
-## Cluster
+    ansible-playbook --list-hosts site.yml
 
 Run ansible playbooks to create the k3s cluster
 
-    ansible-playbook -v -i hosts -t common site.yml
-    ansible-playbook -v -i hosts -t master site.yml
-    ansible-playbook -v -i hosts -t worker site.yml
-    ansible-playbook -v -i hosts -t client site.yml
+    ansible-playbook -v -t common site.yml
+    ansible-playbook -v -t master site.yml
+    ansible-playbook -v -t worker site.yml
+    ansible-playbook -v -t client site.yml
 
 ## Client
 
@@ -48,3 +39,11 @@ Change the `server` line in kubeconfig, to point to master
 Use `kubectl` to run commands against the cluster
 
     kubectl get nodes
+
+Taint the master node
+
+    kubectl taint nodes <master> node-role.kubernetes.io/master=:NoSchedule
+
+Label the worker nodes
+
+    kubectl label nodes <worker> node-role.kubernetes.io/worker=true role=worker
