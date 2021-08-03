@@ -18,6 +18,7 @@
     owner: root
     group: root
     mode: 0755
+    timeout: 60
 
 - name: update profile
   blockinfile:
@@ -29,6 +30,7 @@
   get_url:
     url: https://get.helm.sh/helm-{{ version.helm }}-linux-amd64.tar.gz
     dest: "{{ tmp_location }}"
+    timeout: 60
 
 - name: extract helm
   become: yes
@@ -46,6 +48,7 @@
   get_url:
     url: https://github.com/yannh/kubeconform/releases/download/{{ version.kubeconform }}/kubeconform-linux-amd64.tar.gz
     dest: "{{ tmp_location }}"
+    timeout: 60
 
 - name: extract kubeconform
   become: yes

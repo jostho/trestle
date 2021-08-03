@@ -28,6 +28,7 @@
     url: https://github.com/k3s-io/k3s/releases/download/{{ version.k3s }}/k3s
     dest: /usr/local/bin/k3s
     mode: 0755
+    timeout: 60
 
 - name: create k3s systemd service file
   become: yes
