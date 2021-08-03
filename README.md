@@ -1,6 +1,8 @@
 # Trestle
 
-This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) cluster using [ansible](https://github.com/ansible/ansible).
+![CI](https://github.com/jostho/trestle/workflows/CI/badge.svg)
+
+This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kubernetes cluster using [ansible](https://github.com/ansible/ansible).
 
 ## Environment
 
@@ -11,11 +13,11 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) clust
 
 ## VM
 
-Create `Ubuntu 20.04 LTS` VMs on local using `virt-install`. Update `hosts` file with the IPs of the VMs.
+Create `Ubuntu 20.04 LTS` VMs on localhost using `virt-install`. Update `hosts` file with the IP of the VMs.
 
 ## Cluster
 
-Check ansible connectivity to the hosts
+List hosts
 
     ansible-playbook --list-hosts site.yml
 
