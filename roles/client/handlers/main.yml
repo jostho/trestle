@@ -3,6 +3,7 @@
 - name: start haproxy service
   become: yes
   systemd:
+    name: haproxy
     state: restarted
     daemon_reload: yes
-    name: haproxy
+    enabled: yes

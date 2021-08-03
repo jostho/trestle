@@ -3,6 +3,7 @@
 - name: start k3s service
   become: yes
   systemd:
+    name: k3s
     state: restarted
     daemon_reload: yes
-    name: k3s
+    enabled: yes

@@ -3,6 +3,7 @@
 - name: start k3s-agent service
   become: yes
   systemd:
+    name: k3s-agent
     state: restarted
     daemon_reload: yes
-    name: k3s-agent
+    enabled: yes
