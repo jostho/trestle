@@ -66,6 +66,31 @@
   args:
     creates: ~/.local/share/bash-completion/completions/kubectl
 
+- name: get kubeconfig to local
+  fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /tmp/
+    flat: yes
+  delegate_to: "{{ groups['master'][0] }}"
+
+- name: push kubeconfig
+  copy:
+    src: /tmp/k3s.yaml
+    dest: ~/.kube/k3s.yaml
+    mode: 0600
+
+- name: point kubeconfig server to master
+  replace:
+    path: ~/.kube/k3s.yaml
+    regexp: "https://127.0.0.1:6443"
+    replace: "https://{{ groups['master'][0] }}:6443"
+
+- name: delete local kubeconfig
+  file:
+    path: /tmp/k3s.yaml
+    state: absent
+  delegate_to: localhost
+
 - name: install packages
   become: yes
   package: name={{ item }} state=present

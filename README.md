@@ -13,7 +13,9 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kuber
 
 ## VM
 
-Create `Ubuntu 20.04 LTS` VMs on localhost using `virt-install`. Update `hosts` file with the IP of the VMs.
+Create `Ubuntu 20.04 LTS` VMs on localhost using `virt-install`.
+Provide a [autoinstall](https://ubuntu.com/server/docs/install/autoinstall-reference) file in cloud-init user-data to automate the VM provisioning.
+Setup password-less ssh login to all the VMs from the ansible control node. Update `hosts` file with the IP of the VMs.
 
 ## Cluster
 
@@ -30,15 +32,7 @@ Run ansible playbooks to create the k3s cluster
 
 ## Client
 
-Ssh into client host and get the kubeconfig file
-
-    scp <master_ip>:/etc/rancher/k3s/k3s.yaml ~/.kube
-
-Change the `server` line in kubeconfig, to point to master
-
-    sed -i 's/127.0.0.1/<master_ip>/g' ~/.kube/k3s.yaml
-
-Use `kubectl` to run commands against the cluster
+Ssh into client host. Use `kubectl` to run commands against the cluster
 
     kubectl get nodes
 
