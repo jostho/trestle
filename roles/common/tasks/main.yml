@@ -7,9 +7,18 @@
   with_items:
     - "{{ tmp_location }}"
 
-- copy:
-    content: "{{ ansible_version }}"
-    dest: "{{ tmp_location }}/ansible_version.json"
+- name: get git version
+  shell: git rev-parse --short HEAD
+  delegate_to: localhost
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_result
+
+- name: push release file
+  become: yes
+  template:
+    src: trestle-release.j2
+    dest: /etc/trestle-release
 
 - name: install packages
   become: yes
