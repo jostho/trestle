@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    deployer: trestle
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: kube-prometheus-stack
+  namespace: kube-system
+spec:
+  chart: kube-prometheus-stack
+  targetNamespace: monitoring
+  version: 17.1.1
+  repo: https://prometheus-community.github.io/helm-charts
+  valuesContent: |-
+    prometheus:
+      ingress:
+        enabled: true
+        path: /
+        pathType: Prefix
+        hosts:
+          - prometheus.example.com
+    grafana:
+      adminPassword: trestlepass
+      ingress:
+        enabled: true
+        path: /
+        pathType: Prefix
+        hosts:
+          - grafana.example.com

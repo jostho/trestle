@@ -1,3 +1,4 @@
+---
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
 metadata:
@@ -20,9 +21,6 @@ spec:
     # enable XFF
     additionalArguments:
       - "--entrypoints.web.forwardedheaders.insecure"
-    nodeSelector:
-      # run on worker
-      role: worker
     service:
       spec:
         # preserve client ip

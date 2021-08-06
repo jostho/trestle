@@ -17,11 +17,15 @@
     - /var/log/rancher/k3s
     - /var/lib/rancher/k3s/server/manifests
 
-- name: create traefik-helm-chart-config.yaml
+- name: copy manifests
   become: yes
   copy:
-    src: traefik-helm-chart-config.yaml
+    src: "{{ item }}"
     dest: /var/lib/rancher/k3s/server/manifests/
+  with_items:
+    - traefik-helm-chart-config.yaml
+    - kube-prometheus-stack-helm-chart.yaml
+    - loki-stack-helm-chart.yaml
 
 - name: create k3s config.yaml
   become: yes
