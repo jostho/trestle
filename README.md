@@ -14,7 +14,7 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kuber
 ## VM
 
 Create `Ubuntu 20.04 LTS` VMs on localhost using `virt-install`.
-Provide a [autoinstall](https://ubuntu.com/server/docs/install/autoinstall-reference) file in cloud-init user-data to automate the VM provisioning.
+Use a [autoinstall](https://ubuntu.com/server/docs/install/autoinstall-reference) file in cloud-init user-data to automate the VM provisioning.
 Setup password-less ssh login to all the VMs from the ansible control node. Update `hosts` file with the IP of the VMs.
 
 ## Cluster
@@ -30,16 +30,14 @@ Run ansible playbooks to create the k3s cluster
     ansible-playbook -v -t worker site.yml
     ansible-playbook -v -t client site.yml
 
+The cluster should be up and running in a few minutes.
+
 ## Client
 
 Ssh into client host. Use `kubectl` to run commands against the cluster
 
-    kubectl get nodes
+    kubectl get nodes -o wide
 
-Taint the master node
+List the helm charts installed
 
-    kubectl taint nodes <master> node-role.kubernetes.io/master=:NoSchedule
-
-Label the worker nodes
-
-    kubectl label nodes <worker> node-role.kubernetes.io/worker=true role=worker
+    helm ls -A
