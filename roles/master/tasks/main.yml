@@ -15,15 +15,22 @@
   with_items:
     - /etc/rancher/k3s
     - /var/log/rancher/k3s
-    - /var/lib/rancher/k3s/server/manifests
+    - /var/lib/rancher/k3s/server/manifests/monitoring
 
-- name: copy manifests
+- name: copy traefik-helm-chart-config.yaml
   become: yes
   copy:
     src: "{{ item }}"
     dest: /var/lib/rancher/k3s/server/manifests/
   with_items:
     - traefik-helm-chart-config.yaml
+
+- name: copy monitoring manifests
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: /var/lib/rancher/k3s/server/manifests/monitoring/
+  with_items:
     - kube-prometheus-stack-helm-chart.yaml
     - loki-stack-helm-chart.yaml
 

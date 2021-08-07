@@ -45,7 +45,7 @@ Ssh into client host. Use `kubectl` to run commands against the cluster
 
     kubectl get nodes -o wide
 
-List the addons
+List cluster addons
 
     kubectl get addons -A
 

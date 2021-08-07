@@ -18,8 +18,12 @@ spec:
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
     loki:
+      podLabels:
+        deployer: trestle
       image:
         tag: 2.2.1
     promtail:
+      podLabels:
+        deployer: trestle
       image:
         tag: 2.2.1

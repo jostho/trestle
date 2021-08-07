@@ -17,6 +17,8 @@ spec:
   version: 17.1.1
   repo: https://prometheus-community.github.io/helm-charts
   valuesContent: |-
+    commonLabels:
+      deployer: trestle
     prometheus:
       ingress:
         enabled: true
@@ -25,7 +27,6 @@ spec:
         hosts:
           - prometheus.example.com
     grafana:
-      adminPassword: trestlepass
       ingress:
         enabled: true
         path: /
