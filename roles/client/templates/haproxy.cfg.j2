@@ -33,6 +33,12 @@ defaults
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
 
+frontend stats
+    bind *:8000
+    stats enable
+    stats uri /stats
+    stats refresh 15s
+
 frontend http-80
     bind *:80
     option forwardfor
