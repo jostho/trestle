@@ -20,7 +20,7 @@ global
 defaults
     log global
     mode http
-    option httplog
+    option httplog clf
     option dontlognull
     timeout connect 5000
     timeout client  45000
@@ -40,20 +40,20 @@ frontend stats
     stats refresh 15s
 
 frontend http-80
+    maxconn 2000
     bind *:80
     option forwardfor
     capture request header Host len 32
-    log-format "%{+Q}o %{-Q}ci - - [%trg] %r %ST %B \"\" \"\" %cp %ms %ft %b %s %TR %Tw %Tc %Tr %Ta %tsc %ac %fc %bc %sc %rc %sq %bq %CC %CS %hrl %hsl"
     acl traefik hdr(host) -i traefik.example.com
     use_backend k3s-worker-9000 if traefik
     default_backend k3s-worker-80
 
 backend k3s-worker-80
-{% for ip in groups['worker'] %}
-    server ubuntu{{ ip.split('.')[-1]}} {{ ip }}:80 maxconn 100
+{% for worker in groups['worker'] %}
+    server {{ worker }} {{ worker }}:80 maxconn 200 check inter 5s
 {% endfor %}
 
 backend k3s-worker-9000
-{% for ip in groups['worker'] %}
-    server ubuntu{{ ip.split('.')[-1]}} {{ ip }}:9000 maxconn 100
+{% for worker in groups['worker'] %}
+    server {{ worker }} {{ worker }}:9000 maxconn 100 check inter 5s
 {% endfor %}
