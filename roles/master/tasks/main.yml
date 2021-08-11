@@ -13,10 +13,8 @@
 - name: copy traefik-helm-chart-config.yaml
   become: yes
   copy:
-    src: "{{ item }}"
+    src: traefik-helm-chart-config.yaml
     dest: /var/lib/rancher/k3s/server/manifests/
-  with_items:
-    - traefik-helm-chart-config.yaml
 
 - name: copy metallb-helm-chart.yaml
   become: yes
