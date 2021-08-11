@@ -1,12 +1,5 @@
 ---
 # tasks file for master
-- name: setup local directory
-  file:
-    path: "{{ item }}"
-    state: directory
-  with_items:
-    - "{{ tmp_location }}"
-
 - name: setup system directory
   become: yes
   file:
