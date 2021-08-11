@@ -17,10 +17,12 @@ Create `Ubuntu 20.04 LTS` VMs on localhost using `virt-install`.
 Use a [autoinstall](https://ubuntu.com/server/docs/install/autoinstall-reference) file in cloud-init user-data to automate the VM provisioning.
 Setup password-less ssh login to all the VMs from the ansible control node. Update `hosts` file with the IP of the VMs.
 
+Update `metallb.address_range` field in `group_vars/all.yml` file with the addresses for MetalLB load-balancer.
+
 The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Description |
 | --- | --- | --- | --- | --- |
-| client | 1 | 1 | 1200M | runs haproxy fronting the loadbalancer, also provides kubectl/helm cli |
+| client | 1 | 1 | 1200M | runs haproxy fronting the load-balancer, also provides kubectl/helm cli |
 | master | 1 | 1 | 1600M | k3s server host |
 | worker | 2 | 2 | 2000M | k3s agent hosts |
 
@@ -30,7 +32,7 @@ List hosts
 
     ansible-playbook --list-hosts site.yml
 
-Run ansible playbooks to create the k3s cluster
+Run ansible playbooks to create the k3s cluster. Wait at least 60s between each playbook run.
 
     ansible-playbook -v -t common site.yml
     ansible-playbook -v -t master site.yml
