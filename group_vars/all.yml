@@ -12,3 +12,6 @@ monitoring:
   ingress:
     prometheus: prometheus.example.com
     grafana: grafana.example.com
+metallb:
+  target_namespace: metallb
+  address_range: 192.168.122.130-192.168.122.140

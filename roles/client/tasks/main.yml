@@ -78,10 +78,15 @@
     src: /tmp/k3s.yaml
     dest: ~/.kube/k3s.yaml
     mode: 0600
+  register: kubeconfig_result
+
+- name: set kubeconfig
+  set_fact:
+    kubeconfig: "{{ kubeconfig_result.dest }}"
 
 - name: point kubeconfig server to master
   replace:
-    path: ~/.kube/k3s.yaml
+    path: "{{ kubeconfig }}"
     regexp: "https://127.0.0.1:6443"
     replace: "https://{{ groups['master'][0] }}:6443"
 
@@ -96,6 +101,16 @@
   package: name={{ item }} state=present
   with_items:
     - haproxy
+
+- name: get traefik lb details
+  shell: >
+    kubectl --kubeconfig {{ kubeconfig }} -n kube-system get svc traefik
+    -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+  register: kubectl_result
+
+- name: set traefik lb
+  set_fact:
+    traefik_lb: "{{ kubectl_result.stdout }}"
 
 - name: push haproxy.cfg
   become: yes

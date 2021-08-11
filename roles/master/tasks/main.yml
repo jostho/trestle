@@ -18,6 +18,12 @@
   with_items:
     - traefik-helm-chart-config.yaml
 
+- name: copy metallb-helm-chart.yaml
+  become: yes
+  template:
+    src: metallb-helm-chart.yaml.j2
+    dest: /var/lib/rancher/k3s/server/manifests/metallb-helm-chart.yaml
+
 - name: copy monitoring manifests
   become: yes
   template:

@@ -45,15 +45,11 @@ frontend http-80
     option forwardfor
     capture request header Host len 32
     acl traefik hdr(host) -i traefik.example.com
-    use_backend k3s-worker-9000 if traefik
-    default_backend k3s-worker-80
+    use_backend traefik-9000 if traefik
+    default_backend traefik-80
 
-backend k3s-worker-80
-{% for worker in groups['worker'] %}
-    server {{ worker }} {{ worker }}:80 maxconn 200 check inter 5s
-{% endfor %}
+backend traefik-80
+    server {{ traefik_lb }} {{ traefik_lb }}:80 maxconn 200 check inter 5s
 
-backend k3s-worker-9000
-{% for worker in groups['worker'] %}
-    server {{ worker }} {{ worker }}:9000 maxconn 100 check inter 5s
-{% endfor %}
+backend traefik-9000
+    server {{ traefik_lb }} {{ traefik_lb }}:9000 maxconn 100 check inter 5s

@@ -20,7 +20,7 @@ Setup password-less ssh login to all the VMs from the ansible control node. Upda
 The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Description |
 | --- | --- | --- | --- | --- |
-| client | 1 | 1 | 1200M | runs haproxy fronting the worker nodes, also provides kubectl/helm cli |
+| client | 1 | 1 | 1200M | runs haproxy fronting the loadbalancer, also provides kubectl/helm cli |
 | master | 1 | 1 | 1600M | k3s server host |
 | worker | 2 | 2 | 2000M | k3s agent hosts |
 
