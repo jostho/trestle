@@ -1,7 +1,7 @@
 ---
 project_name: trestle
 token: trestletoken
-tmp_location: /tmp/{{ project_name }}
+tmp_location: /tmp/trestle
 version:
   k3s: v1.21.3+k3s1
   kubectl: v1.21.3
