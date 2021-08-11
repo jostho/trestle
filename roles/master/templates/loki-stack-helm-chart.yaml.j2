@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: monitoring
+  name: {{ monitoring.target_namespace }}
   labels:
-    deployer: trestle
+    deployer: {{ project_name }}
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
@@ -13,17 +13,17 @@ metadata:
   namespace: kube-system
 spec:
   chart: loki-stack
-  targetNamespace: monitoring
+  targetNamespace: {{ monitoring.target_namespace }}
   version: 2.4.1
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
     loki:
       podLabels:
-        deployer: trestle
+        deployer: {{ project_name }}
       image:
         tag: 2.2.1
     promtail:
       podLabels:
-        deployer: trestle
+        deployer: {{ project_name }}
       image:
         tag: 2.2.1

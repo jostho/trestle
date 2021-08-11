@@ -27,12 +27,12 @@
 
 - name: copy monitoring manifests
   become: yes
-  copy:
+  template:
     src: "{{ item }}"
-    dest: /var/lib/rancher/k3s/server/manifests/monitoring/
+    dest: "/var/lib/rancher/k3s/server/manifests/monitoring/{{ item | splitext | first }}"
   with_items:
-    - kube-prometheus-stack-helm-chart.yaml
-    - loki-stack-helm-chart.yaml
+    - kube-prometheus-stack-helm-chart.yaml.j2
+    - loki-stack-helm-chart.yaml.j2
 
 - name: create k3s config.yaml
   become: yes

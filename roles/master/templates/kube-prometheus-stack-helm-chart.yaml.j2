@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: monitoring
+  name: {{ monitoring.target_namespace }}
   labels:
-    deployer: trestle
+    deployer: {{ project_name }}
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
@@ -13,23 +13,23 @@ metadata:
   namespace: kube-system
 spec:
   chart: kube-prometheus-stack
-  targetNamespace: monitoring
+  targetNamespace: {{ monitoring.target_namespace }}
   version: 17.1.1
   repo: https://prometheus-community.github.io/helm-charts
   valuesContent: |-
     commonLabels:
-      deployer: trestle
+      deployer: {{ project_name }}
     prometheus:
       ingress:
         enabled: true
         path: /
         pathType: Prefix
         hosts:
-          - prometheus.example.com
+          - {{ monitoring.ingress.prometheus }}
     grafana:
       ingress:
         enabled: true
         path: /
         pathType: Prefix
         hosts:
-          - grafana.example.com
+          - {{ monitoring.ingress.grafana }}

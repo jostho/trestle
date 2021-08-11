@@ -1,8 +1,14 @@
 ---
+project_name: trestle
 token: trestletoken
-tmp_location: /tmp/trestle
+tmp_location: /tmp/{{ project_name }}
 version:
   k3s: v1.21.3+k3s1
   kubectl: v1.21.3
   helm: v3.6.3
   kubeconform: v0.4.8
+monitoring:
+  target_namespace: monitoring
+  ingress:
+    prometheus: prometheus.example.com
+    grafana: grafana.example.com
