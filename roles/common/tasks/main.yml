@@ -7,6 +7,10 @@
     chdir: "{{ playbook_dir }}"
   register: git_result
 
+- name: set git commit
+  set_fact:
+    git_commit: "{{ git_result.stdout }}"
+
 - name: push release file
   become: yes
   template:
