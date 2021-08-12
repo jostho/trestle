@@ -22,7 +22,7 @@ Update `metallb.address_range` field in `group_vars/all.yml` file with the addre
 The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Description |
 | --- | --- | --- | --- | --- |
-| client | 1 | 1 | 1000M | runs haproxy fronting the load-balancer, also provides kubectl/helm cli |
+| client | 1 | 1 | 1000M | provides kubectl/helm cli |
 | master | 1 | 1 | 1600M | k3s server host |
 | worker | 2 | 2 | 2000M | k3s agent hosts |
 
@@ -40,6 +40,11 @@ Run ansible playbooks to create the k3s cluster. Wait at least 60s between each 
     ansible-playbook -v -t client site.yml
 
 The cluster should be up and running in a few minutes.
+
+The below helm charts are installed on the k3s cluster as addons
+1. [kube-prometheus-stack](https://prometheus-community.github.io/helm-charts) (monitoring)
+1. [loki-stack](https://grafana.github.io/helm-charts) (log aggregation)
+1. [metallb](https://github.com/metallb/metallb) (load-balancer)
 
 ## Client
 
