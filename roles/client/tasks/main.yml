@@ -104,7 +104,7 @@
 
 - name: get traefik lb details
   shell: >
-    kubectl --kubeconfig {{ kubeconfig }} -n kube-system get svc traefik
+    kubectl --kubeconfig {{ kubeconfig }} -n kube-system get service traefik
     -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
   register: kubectl_result
 

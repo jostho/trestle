@@ -22,7 +22,7 @@ Update `metallb.address_range` field in `group_vars/all.yml` file with the addre
 The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Description |
 | --- | --- | --- | --- | --- |
-| client | 1 | 1 | 1200M | runs haproxy fronting the load-balancer, also provides kubectl/helm cli |
+| client | 1 | 1 | 1000M | runs haproxy fronting the load-balancer, also provides kubectl/helm cli |
 | master | 1 | 1 | 1600M | k3s server host |
 | worker | 2 | 2 | 2000M | k3s agent hosts |
 
