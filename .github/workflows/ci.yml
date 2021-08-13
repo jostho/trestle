@@ -16,5 +16,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Print python version
+        run: python3 --version
+      - name: Install ansible-lint
+        run: pip install ansible-lint
+      - name: Print ansible-lint version
+        run: ansible-lint --version
       - name: Run yamllint
         run: yamllint .
+      - name: Run ansible-lint
+        run: ansible-lint
