@@ -5,6 +5,7 @@
   file:
     path: "{{ item }}"
     state: directory
+    mode: 0755
   with_items:
     - /etc/rancher/k3s
     - /var/log/rancher/k3s

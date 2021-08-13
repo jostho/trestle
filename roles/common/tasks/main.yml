@@ -1,7 +1,7 @@
 ---
 # tasks file for common
-- name: get git version
-  shell: git rev-parse --short HEAD
+- name: get git version  # noqa command-instead-of-module no-changed-when
+  command: git rev-parse --short HEAD
   delegate_to: localhost
   args:
     chdir: "{{ playbook_dir }}"
