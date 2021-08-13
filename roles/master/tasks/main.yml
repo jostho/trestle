@@ -15,6 +15,7 @@
   template:
     src: "{{ item }}"
     dest: "/var/lib/rancher/k3s/server/manifests/{{ item | splitext | first }}"
+    mode: 0600
   with_items:
     - traefik-helm-chart-config.yaml.j2
     - metallb-helm-chart.yaml.j2
@@ -24,6 +25,7 @@
   template:
     src: "{{ item }}"
     dest: "/var/lib/rancher/k3s/server/manifests/monitoring/{{ item | splitext | first }}"
+    mode: 0600
   with_items:
     - kube-prometheus-stack-helm-chart.yaml.j2
     - loki-stack-helm-chart.yaml.j2
@@ -33,6 +35,7 @@
   template:
     src: config.yaml.j2
     dest: /etc/rancher/k3s/config.yaml
+    mode: 0600
 
 - name: download k3s
   become: yes
@@ -47,4 +50,5 @@
   copy:
     src: k3s.service
     dest: /etc/systemd/system/
+    mode: 0644
   notify: start k3s service

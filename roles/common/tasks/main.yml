@@ -16,6 +16,7 @@
   template:
     src: trestle-release.j2
     dest: /etc/trestle-release
+    mode: 0644
 
 - name: install packages
   become: yes
