@@ -23,6 +23,8 @@ spec:
       - "--entrypoints.web.forwardedheaders.insecure"
     service:
       spec:
+        # pick up first ip from metallb address range
+        loadBalancerIP: {{ metallb.address_range.split('-')[0] }}
         # preserve client ip
         externalTrafficPolicy: Local
     ports:

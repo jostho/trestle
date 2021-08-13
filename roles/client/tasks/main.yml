@@ -10,6 +10,12 @@
     - ~/.kube
     - ~/.local/share/bash-completion/completions
 
+- name: update profile
+  blockinfile:
+    path: ~/.profile
+    block: |
+        export KUBECONFIG=~/.kube/k3s.yaml
+
 - name: download kubectl
   become: yes
   get_url:
@@ -19,12 +25,6 @@
     group: root
     mode: 0755
     timeout: 60
-
-- name: update profile
-  blockinfile:
-    path: ~/.profile
-    block: |
-        export KUBECONFIG=~/.kube/k3s.yaml
 
 - name: download helm archive
   get_url:
@@ -78,15 +78,10 @@
     src: /tmp/k3s.yaml
     dest: ~/.kube/k3s.yaml
     mode: 0600
-  register: kubeconfig_result
-
-- name: set kubeconfig
-  set_fact:
-    kubeconfig: "{{ kubeconfig_result.dest }}"
 
 - name: point kubeconfig server to master
   replace:
-    path: "{{ kubeconfig }}"
+    path: ~/.kube/k3s.yaml
     regexp: "https://127.0.0.1:6443"
     replace: "https://{{ groups['master'][0] }}:6443"
 
@@ -102,15 +97,10 @@
   with_items:
     - haproxy
 
-- name: get traefik lb details
-  shell: >
-    kubectl --kubeconfig {{ kubeconfig }} -n kube-system get service traefik
-    -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
-  register: kubectl_result
-
 - name: set traefik lb
   set_fact:
-    traefik_lb: "{{ kubectl_result.stdout }}"
+    # pick up first ip from metallb address range
+    traefik_lb: "{{ metallb.address_range.split('-')[0] }}"
 
 - name: push haproxy.cfg
   become: yes

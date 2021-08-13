@@ -10,17 +10,14 @@
     - /var/log/rancher/k3s
     - /var/lib/rancher/k3s/server/manifests/monitoring
 
-- name: copy traefik-helm-chart-config.yaml
-  become: yes
-  copy:
-    src: traefik-helm-chart-config.yaml
-    dest: /var/lib/rancher/k3s/server/manifests/
-
-- name: copy metallb-helm-chart.yaml
+- name: copy manifests
   become: yes
   template:
-    src: metallb-helm-chart.yaml.j2
-    dest: /var/lib/rancher/k3s/server/manifests/metallb-helm-chart.yaml
+    src: "{{ item }}"
+    dest: "/var/lib/rancher/k3s/server/manifests/{{ item | splitext | first }}"
+  with_items:
+    - traefik-helm-chart-config.yaml.j2
+    - metallb-helm-chart.yaml.j2
 
 - name: copy monitoring manifests
   become: yes
