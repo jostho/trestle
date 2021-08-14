@@ -1,3 +1,5 @@
 server: "https://{{ groups['master'][0] }}:6443"
 token: "{{ token }}"
 log: "/var/log/rancher/k3s/agent.log"
+node-label:
+  - "{{ project_name }}-role=worker"

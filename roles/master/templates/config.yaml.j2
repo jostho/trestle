@@ -5,3 +5,5 @@ disable:
   - "servicelb"
 node-taint:
   - "node-role.kubernetes.io/master=:NoSchedule"
+node-label:
+  - "{{ project_name }}-role=master"
