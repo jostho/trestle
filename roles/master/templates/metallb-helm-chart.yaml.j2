@@ -19,7 +19,7 @@ spec:
   valuesContent: |-
     configInline:
       address-pools:
-       - name: default
-         protocol: layer2
-         addresses:
-         - {{ metallb.address_range }}
+        - name: default
+          protocol: layer2
+          addresses:
+            - {{ metallb.address_range }}
