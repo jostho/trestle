@@ -43,7 +43,7 @@ The cluster should be up and running in a few minutes.
 
 The below helm charts are installed on the k3s cluster as addons
 1. [kube-prometheus-stack](https://prometheus-community.github.io/helm-charts) (monitoring)
-1. [loki-stack](https://grafana.github.io/helm-charts) (log aggregation)
+1. [loki](https://grafana.github.io/helm-charts) (log aggregation)
 1. [metallb](https://github.com/metallb/metallb) (load-balancer)
 
 ## Client
