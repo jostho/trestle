@@ -7,3 +7,11 @@
     state: restarted
     daemon_reload: yes
     enabled: yes
+
+- name: start nfs service
+  become: yes
+  systemd:
+    name: nfs-kernel-server
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

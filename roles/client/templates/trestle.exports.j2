@@ -1,0 +1,3 @@
+{% for ip in groups['worker'] %}
+/srv/nfs/trestle  {{ ip }}(rw,sync,no_subtree_check,no_root_squash,no_all_squash,insecure)
+{% endfor %}

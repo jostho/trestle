@@ -2,6 +2,7 @@
 project_name: trestle
 token: trestletoken
 tmp_location: /tmp/trestle
+nfs_location: /srv/nfs/trestle
 version:
   k3s: v1.21.4+k3s1
   kubectl: v1.21.4
@@ -15,3 +16,5 @@ monitoring:
 metallb:
   target_namespace: metallb
   address_range: 192.168.122.130-192.168.122.140
+nfs_provisioner:
+  target_namespace: nfs-provisioner

@@ -96,7 +96,26 @@
   become: yes
   package: name={{ item }} state=present
   with_items:
+    - nfs-kernel-server
     - haproxy
+
+- name: setup system directory
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /etc/exports.d
+    - "{{ nfs_location }}"
+
+- name: push exports
+  become: yes
+  template:
+    src: trestle.exports.j2
+    dest: /etc/exports.d/trestle.exports
+    mode: 0644
+  notify: start nfs service
 
 - name: set traefik lb
   set_fact:
