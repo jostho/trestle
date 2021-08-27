@@ -14,22 +14,16 @@ metadata:
 spec:
   chart: kube-prometheus-stack
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 18.0.0
+  version: 18.0.1
   repo: https://prometheus-community.github.io/helm-charts
   valuesContent: |-
     commonLabels:
       deployer: {{ project_name }}
-    prometheus:
-      ingress:
-        enabled: true
-        path: /
-        pathType: Prefix
-        hosts:
-          - {{ monitoring.ingress.prometheus }}
     grafana:
-      ingress:
-        enabled: true
-        path: /
-        pathType: Prefix
-        hosts:
-          - {{ monitoring.ingress.grafana }}
+      service:
+        type: LoadBalancer
+        loadBalancerIP: {{ metallb.lb_ip.grafana }}
+    prometheus:
+      service:
+        type: LoadBalancer
+        loadBalancerIP: {{ metallb.lb_ip.prometheus }}
