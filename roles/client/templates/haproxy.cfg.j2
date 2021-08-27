@@ -38,4 +38,4 @@ frontend http-80
     default_backend traefik-80
 
 backend traefik-80
-    server {{ traefik_lb }} {{ traefik_lb }}:80 maxconn 200 check inter 5s
+    server {{ metallb.lb_ip.traefik }} {{ metallb.lb_ip.traefik }}:80 maxconn 200 check inter 5s

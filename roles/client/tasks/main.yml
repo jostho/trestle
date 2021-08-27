@@ -117,11 +117,6 @@
     mode: 0644
   notify: start nfs service
 
-- name: set traefik lb
-  set_fact:
-    # pick up first ip from metallb address range
-    traefik_lb: "{{ metallb.address_range.split('-')[0] }}"
-
 - name: push haproxy.cfg
   become: yes
   template:
