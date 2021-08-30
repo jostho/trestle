@@ -15,9 +15,9 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kuber
 
 Create `Ubuntu 20.04 LTS` VMs on localhost using `virt-install`.
 Use a [autoinstall](https://ubuntu.com/server/docs/install/autoinstall-reference) file in cloud-init user-data to automate the VM provisioning.
-Setup password-less ssh login to all the VMs from the ansible control node. Update `hosts` file with the IP of the VMs.
+Setup password-less ssh login to all the VMs from the ansible control node. Update [hosts](hosts) file with the IP of the VMs.
 
-Update `metallb.address_range` field in `group_vars/all.yml` file with the addresses for MetalLB load-balancer.
+Update `metallb.address_range` and `metallb.lb_ip` fields in [group_vars/all.yml](group_vars/all.yml) file with the addresses for MetalLB load-balancer.
 
 The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Disk | Description |
