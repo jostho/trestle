@@ -45,6 +45,16 @@
       - --strip-components=1
       - linux-amd64/helm
 
+- name: download argocd cli
+  become: yes
+  get_url:
+    url: https://github.com/argoproj/argo-cd/releases/download/{{ version.argocd }}/argocd-linux-amd64
+    dest: /usr/local/bin/argocd
+    owner: root
+    group: root
+    mode: 0755
+    timeout: 60
+
 - name: download kubeconform archive
   get_url:
     url: https://github.com/yannh/kubeconform/releases/download/{{ version.kubeconform }}/kubeconform-linux-amd64.tar.gz
@@ -62,10 +72,13 @@
     extra_opts:
       - kubeconform
 
-- name: run kubectl completion
-  shell: kubectl completion bash > ~/.local/share/bash-completion/completions/kubectl
+- name: run bash completion
+  shell: "{{ item }} completion bash > ~/.local/share/bash-completion/completions/{{ item }}"
   args:
-    creates: ~/.local/share/bash-completion/completions/kubectl
+    creates: "~/.local/share/bash-completion/completions/{{ item }}"
+  with_items:
+    - kubectl
+    - argocd
 
 - name: get kubeconfig to local
   fetch:
