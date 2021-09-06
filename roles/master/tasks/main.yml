@@ -9,9 +9,9 @@
   with_items:
     - /etc/rancher/k3s
     - /var/log/rancher/k3s
-    - /var/lib/rancher/k3s/server/manifests/monitoring
+    - /var/lib/rancher/k3s/server/manifests/trestle
 
-- name: copy manifests
+- name: copy traefik manifest
   become: yes
   template:
     src: "{{ item }}"
@@ -19,17 +19,17 @@
     mode: 0600
   with_items:
     - traefik-helm-chart-config.yaml.j2
-    - metallb-helm-chart.yaml.j2
-    - nfs-provisioner-helm-chart.yaml.j2
-    - argo-cd-helm-chart.yaml.j2
 
-- name: copy monitoring manifests
+- name: copy helm manifests
   become: yes
   template:
     src: "{{ item }}"
-    dest: "/var/lib/rancher/k3s/server/manifests/monitoring/{{ item | splitext | first }}"
+    dest: "/var/lib/rancher/k3s/server/manifests/trestle/{{ item | splitext | first }}"
     mode: 0600
   with_items:
+    - metallb-helm-chart.yaml.j2
+    - nfs-provisioner-helm-chart.yaml.j2
+    - argo-cd-helm-chart.yaml.j2
     - kube-prometheus-stack-helm-chart.yaml.j2
     - loki-stack-helm-chart.yaml.j2
 
