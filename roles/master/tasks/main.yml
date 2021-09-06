@@ -21,6 +21,7 @@
     - traefik-helm-chart-config.yaml.j2
     - metallb-helm-chart.yaml.j2
     - nfs-provisioner-helm-chart.yaml.j2
+    - argo-cd-helm-chart.yaml.j2
 
 - name: copy monitoring manifests
   become: yes

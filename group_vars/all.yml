@@ -8,8 +8,6 @@ version:
   kubectl: v1.21.4
   helm: v3.6.3
   kubeconform: v0.4.8
-monitoring:
-  target_namespace: monitoring
 metallb:
   target_namespace: metallb
   address_range: 192.168.122.130-192.168.122.140
@@ -18,5 +16,10 @@ metallb:
     traefik: 192.168.122.130
     grafana: 192.168.122.131
     prometheus: 192.168.122.132
+    argocd: 192.168.122.133
+monitoring:
+  target_namespace: monitoring
 nfs_provisioner:
   target_namespace: nfs-provisioner
+argocd:
+  target_namespace: argocd
