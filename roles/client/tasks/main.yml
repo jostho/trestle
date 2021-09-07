@@ -7,7 +7,6 @@
     mode: 0770
   with_items:
     - "{{ tmp_location }}"
-    - ~/src/k8s
     - ~/.kube
     - ~/.local/share/bash-completion/completions
 
@@ -54,23 +53,6 @@
     group: root
     mode: 0755
     timeout: 60
-
-- name: download kubeconform archive
-  get_url:
-    url: https://github.com/yannh/kubeconform/releases/download/{{ version.kubeconform }}/kubeconform-linux-amd64.tar.gz
-    dest: "{{ tmp_location }}"
-    timeout: 60
-
-- name: extract kubeconform
-  become: yes
-  unarchive:
-    src: "{{ tmp_location }}/kubeconform-linux-amd64.tar.gz"
-    dest: /usr/local/bin
-    owner: root
-    group: root
-    remote_src: yes
-    extra_opts:
-      - kubeconform
 
 - name: run bash completion
   shell: "{{ item }} completion bash > ~/.local/share/bash-completion/completions/{{ item }}"

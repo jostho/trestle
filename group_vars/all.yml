@@ -8,7 +8,6 @@ version:
   kubectl: v1.21.4
   helm: v3.6.3
   argocd: v2.1.2
-  kubeconform: v0.4.8
 metallb:
   target_namespace: metallb
   address_range: 192.168.122.130-192.168.122.140
