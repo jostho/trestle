@@ -19,7 +19,7 @@ jobs:
       - name: Print python version
         run: python3 --version
       - name: Install ansible lint
-        run: pip install ansible-lint ansible==2.9.24
+        run: pip install ansible-lint ansible==2.9.25
       - name: Print ansible-lint version
         run: ansible-lint --version
       - name: Run yamllint
