@@ -4,9 +4,9 @@ token: trestletoken
 tmp_location: /tmp/trestle
 nfs_location: /srv/nfs/trestle
 version:
-  k3s: v1.22.2+k3s2
-  kubectl: v1.22.2
-  helm: v3.7.1
+  k3s: v1.23.6+k3s1
+  kubectl: v1.23.6
+  helm: v3.8.2
   argocd: v2.1.5
 metallb:
   target_namespace: metallb
