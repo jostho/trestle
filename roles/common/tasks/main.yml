@@ -26,14 +26,6 @@
     - tree
     - sysstat
 
-- name: remove snaps
-  become: yes
-  snap: name={{ item }} state=absent
-  with_items:
-    - lxd
-    - core18
-    - snapd
-
 - name: enable sysstat
   become: yes
   replace:
