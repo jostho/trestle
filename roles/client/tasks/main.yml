@@ -30,6 +30,7 @@
   get_url:
     url: https://get.helm.sh/helm-{{ version.helm }}-linux-amd64.tar.gz
     dest: "{{ tmp_location }}"
+    mode: 0644
     timeout: 60
 
 - name: extract helm
