@@ -1,0 +1,9 @@
+---
+# handlers file for common
+- name: start sysstat service
+  become: yes
+  systemd:
+    name: sysstat
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

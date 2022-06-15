@@ -32,3 +32,4 @@
     path: /etc/default/sysstat
     regexp: 'ENABLED="false"'
     replace: 'ENABLED="true"'
+  notify: start sysstat service
