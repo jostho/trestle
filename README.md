@@ -22,7 +22,7 @@ Update `metallb.address_range` and `metallb.lb_ip` fields in [group_vars/all.yml
 The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Disk | Description |
 | --- | --- | --- | --- | --- | --- |
-| client | 1 | 1 | 1000M | 12G | provides kubectl cli |
+| client | 1 | 1 | 1200M | 12G | provides cli tools |
 | master | 1 | 1 | 1600M | 12G | k3s server host |
 | worker | 2 | 2 | 2000M | 12G | k3s agent hosts |
 
