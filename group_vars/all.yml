@@ -7,7 +7,7 @@ version:
   k3s: v1.23.8+k3s2
   kubectl: v1.23.8
   helm: v3.8.2
-  argocd: v2.3.4
+  argocd: v2.4.4
 metallb:
   target_namespace: metallb
   address_range: 192.168.122.130-192.168.122.140
