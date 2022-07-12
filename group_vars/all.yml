@@ -10,7 +10,7 @@ version:
   argocd: v2.4.4
 metallb:
   target_namespace: metallb
-  address_range: 192.168.122.130-192.168.122.140
+  address_range: 192.168.122.130-192.168.122.150
   # all LB ip values should be inside "address_range"
   lb_ip:
     traefik: 192.168.122.130
