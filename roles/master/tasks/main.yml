@@ -20,7 +20,7 @@
   with_items:
     - traefik-helm-chart-config.yaml.j2
 
-- name: copy helm manifests
+- name: copy metallb helm manifest
   become: yes
   template:
     src: "{{ item }}"
@@ -28,6 +28,16 @@
     mode: 0600
   with_items:
     - metallb-helm-chart.yaml.j2
+  when: metallb.enabled == true
+
+
+- name: copy helm manifests
+  become: yes
+  template:
+    src: "{{ item }}"
+    dest: "/var/lib/rancher/k3s/server/manifests/trestle/{{ item | splitext | first }}"
+    mode: 0600
+  with_items:
     - nfs-provisioner-helm-chart.yaml.j2
     - argo-cd-helm-chart.yaml.j2
     - kube-prometheus-stack-helm-chart.yaml.j2

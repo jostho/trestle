@@ -37,10 +37,16 @@ frontend http-80
     capture request header Host len 32
     acl host_ingress hdr(host) -i {{ dns_suffix }}
     use_backend traefik-nodeport-32080 if host_ingress
+{% if metallb.enabled == true %}
     default_backend traefik-loadbalancer-80
+{% else %}
+    default_backend traefik-nodeport-32080
+{% endif %}
 
+{% if metallb.enabled == true %}
 backend traefik-loadbalancer-80
     server {{ metallb.lb_ip.traefik }} {{ metallb.lb_ip.traefik }}:80 maxconn 200 check inter 5s
+{% endif %}
 
 backend traefik-nodeport-32080
 {% for worker in groups['worker'] %}

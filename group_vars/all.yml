@@ -10,6 +10,7 @@ version:
   helm: v3.8.2
   argocd: v2.4.10
 metallb:
+  enabled: true
   target_namespace: metallb
   address_range: 192.168.122.130-192.168.122.150
   # all LB ip values should be inside "address_range"
