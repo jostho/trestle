@@ -24,7 +24,7 @@ defaults
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
 
-frontend stats
+frontend stats-8000
     bind *:8000
     stats enable
     stats uri /stats
@@ -35,7 +35,14 @@ frontend http-80
     bind *:80
     option forwardfor
     capture request header Host len 32
-    default_backend traefik-80
+    acl host_ingress hdr(host) -i {{ dns_suffix }}
+    use_backend traefik-nodeport-32080 if host_ingress
+    default_backend traefik-loadbalancer-80
 
-backend traefik-80
+backend traefik-loadbalancer-80
     server {{ metallb.lb_ip.traefik }} {{ metallb.lb_ip.traefik }}:80 maxconn 200 check inter 5s
+
+backend traefik-nodeport-32080
+{% for worker in groups['worker'] %}
+    server {{ worker }} {{ worker }}:32080 maxconn 200 check inter 5s
+{% endfor %}

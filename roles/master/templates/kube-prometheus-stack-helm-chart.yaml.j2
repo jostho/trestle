@@ -23,7 +23,15 @@ spec:
       service:
         type: LoadBalancer
         loadBalancerIP: {{ metallb.lb_ip.grafana }}
+      ingress:
+        enabled: true
+        hosts:
+          - grafana.{{ dns_suffix }}
     prometheus:
       service:
         type: LoadBalancer
         loadBalancerIP: {{ metallb.lb_ip.prometheus }}
+      ingress:
+        enabled: true
+        hosts:
+          - prometheus.{{ dns_suffix }}

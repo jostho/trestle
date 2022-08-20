@@ -18,6 +18,12 @@ spec:
   repo: https://argoproj.github.io/argo-helm
   valuesContent: |-
     server:
+      extraArgs:
+        - --insecure
       service:
         type: LoadBalancer
         loadBalancerIP: {{ metallb.lb_ip.argocd }}
+      ingress:
+        enabled: true
+        hosts:
+          - argocd.{{ dns_suffix }}
