@@ -19,16 +19,16 @@
 - name: download kubectl
   become: yes
   get_url:
-    url: https://dl.k8s.io/release/{{ version.kubectl }}/bin/linux/amd64/kubectl
+    url: https://dl.k8s.io/release/{{ version.kubectl }}/bin/linux/{{ arch }}/kubectl
     dest: /usr/local/bin/kubectl
     owner: root
     group: root
     mode: 0755
     timeout: 60
 
-- name: download helm archive
+- name: download helm
   get_url:
-    url: https://get.helm.sh/helm-{{ version.helm }}-linux-amd64.tar.gz
+    url: https://get.helm.sh/helm-{{ version.helm }}-linux-{{ arch }}.tar.gz
     dest: "{{ tmp_location }}"
     mode: 0644
     timeout: 60
@@ -36,19 +36,19 @@
 - name: extract helm
   become: yes
   unarchive:
-    src: "{{ tmp_location }}/helm-{{ version.helm }}-linux-amd64.tar.gz"
+    src: "{{ tmp_location }}/helm-{{ version.helm }}-linux-{{ arch }}.tar.gz"
     dest: /usr/local/bin
     owner: root
     group: root
     remote_src: yes
     extra_opts:
       - --strip-components=1
-      - linux-amd64/helm
+      - linux-{{ arch }}/helm
 
 - name: download argocd cli
   become: yes
   get_url:
-    url: https://github.com/argoproj/argo-cd/releases/download/{{ version.argocd }}/argocd-linux-amd64
+    url: https://github.com/argoproj/argo-cd/releases/download/{{ version.argocd }}/argocd-linux-{{ arch }}
     dest: /usr/local/bin/argocd
     owner: root
     group: root

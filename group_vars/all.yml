@@ -1,5 +1,6 @@
 ---
 project_name: trestle
+arch: amd64
 token: trestletoken
 tmp_location: /tmp/trestle
 nfs_location: /srv/nfs/trestle
