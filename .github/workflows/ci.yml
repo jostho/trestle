@@ -29,4 +29,4 @@ jobs:
       - name: Run yamllint
         run: yamllint .
       - name: Run ansible-lint
-        run: ansible-lint -x fqcn-builtins
+        run: ansible-lint
