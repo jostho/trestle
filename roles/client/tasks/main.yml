@@ -16,6 +16,10 @@
     block: |
         export KUBECONFIG=~/.kube/k3s.yaml
 
+- name: set binary arch
+  set_fact:
+    arch: "{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
+
 - name: download kubectl
   become: yes
   get_url:
