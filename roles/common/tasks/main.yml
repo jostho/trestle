@@ -18,6 +18,16 @@
     dest: /etc/trestle-release
     mode: 0644
 
+- name: stop services
+  become: yes
+  service:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - snapd
+    - unattended-upgrades
+
 - name: install packages
   become: yes
   package: name={{ item }} state=present
