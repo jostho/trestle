@@ -19,9 +19,12 @@ metallb:
     grafana: 192.168.122.131
     prometheus: 192.168.122.132
     argocd: 192.168.122.133
+    kubernetes_dashboard: 192.168.122.134
 monitoring:
   target_namespace: monitoring
 nfs_provisioner:
   target_namespace: nfs-provisioner
 argocd:
   target_namespace: argocd
+kubernetes_dashboard:
+  target_namespace: kubernetes-dashboard

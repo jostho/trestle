@@ -42,6 +42,7 @@
     - argo-cd-helm-chart.yaml.j2
     - kube-prometheus-stack-helm-chart.yaml.j2
     - loki-stack-helm-chart.yaml.j2
+    - kubernetes-dashboard-helm-chart.yaml.j2
 
 - name: create k3s config.yaml
   become: yes
