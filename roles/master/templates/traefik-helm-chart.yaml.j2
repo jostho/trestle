@@ -1,10 +1,21 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ traefik.target_namespace }}
+  labels:
+    deployer: {{ project_name }}
+---
 apiVersion: helm.cattle.io/v1
-kind: HelmChartConfig
+kind: HelmChart
 metadata:
   name: traefik
   namespace: kube-system
 spec:
+  chart: traefik
+  targetNamespace: {{ traefik.target_namespace }}
+  version: 10.24.2
+  repo: https://helm.traefik.io/traefik
   valuesContent: |-
     logs:
       access:
@@ -21,12 +32,6 @@ spec:
     # enable XFF
     additionalArguments:
       - "--entrypoints.web.forwardedheaders.insecure"
-    service:
-      spec:
-        # specify metallb ip
-        loadBalancerIP: {{ metallb.lb_ip.traefik }}
-        # preserve client ip
-        externalTrafficPolicy: Local
     ports:
       traefik:
         # expose the traefik port
@@ -34,3 +39,9 @@ spec:
       web:
         # route through haproxy
         nodePort: 32080
+    service:
+      spec:
+        # specify metallb ip
+        loadBalancerIP: {{ metallb.lb_ip.traefik }}
+        # preserve client ip
+        externalTrafficPolicy: Local

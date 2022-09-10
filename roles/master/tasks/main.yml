@@ -11,15 +11,6 @@
     - /var/log/rancher/k3s
     - /var/lib/rancher/k3s/server/manifests/trestle
 
-- name: copy traefik manifest
-  become: yes
-  template:
-    src: "{{ item }}"
-    dest: "/var/lib/rancher/k3s/server/manifests/{{ item | splitext | first }}"
-    mode: 0600
-  with_items:
-    - traefik-helm-chart-config.yaml.j2
-
 - name: copy metallb helm manifest
   become: yes
   template:
@@ -38,6 +29,7 @@
     dest: "/var/lib/rancher/k3s/server/manifests/trestle/{{ item | splitext | first }}"
     mode: 0600
   with_items:
+    - traefik-helm-chart.yaml.j2
     - nfs-provisioner-helm-chart.yaml.j2
     - argo-cd-helm-chart.yaml.j2
     - kube-prometheus-stack-helm-chart.yaml.j2

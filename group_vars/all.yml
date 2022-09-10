@@ -20,6 +20,8 @@ metallb:
     prometheus: 192.168.122.132
     argocd: 192.168.122.133
     kubernetes_dashboard: 192.168.122.134
+traefik:
+  target_namespace: traefik
 monitoring:
   target_namespace: monitoring
 nfs_provisioner:
