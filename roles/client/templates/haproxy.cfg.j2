@@ -34,9 +34,16 @@ frontend http-80
     maxconn 2000
     bind *:80
     option forwardfor
-    capture request header Host len 32
-    acl host_ingress hdr(host) -i {{ dns_suffix }}
+    # capture for access log
+    capture request header Host len 64
+    capture request header User-Agent len 64
+    # set host header for argocd client
+    acl ua_argocd_client hdr_sub(user-agent) -i argocd-client
+    http-request set-header host argocd.{{ dns_suffix }} if ua_argocd_client
+    # route to traefik nodeport
+    acl host_ingress hdr_sub(host) -i {{ dns_suffix }}
     use_backend traefik-nodeport-32080 if host_ingress
+    # default backend
 {% if metallb.enabled == true %}
     default_backend traefik-loadbalancer-80
 {% else %}
