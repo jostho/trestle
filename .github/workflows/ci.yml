@@ -11,7 +11,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -23,7 +23,7 @@ jobs:
       - name: Print python version
         run: python --version
       - name: Install ansible lint
-        run: pip install ansible-lint ansible-core==2.12.7
+        run: pip install ansible-lint ansible-core
       - name: Print ansible-lint version
         run: ansible-lint --version
       - name: Run yamllint
