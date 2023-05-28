@@ -94,10 +94,11 @@
 
 - name: install packages
   become: yes
-  package: name={{ item }} state=present
-  with_items:
-    - nfs-kernel-server
-    - haproxy
+  package:
+    state: present
+    name:
+      - nfs-kernel-server
+      - haproxy
 
 - name: setup system directory
   become: yes

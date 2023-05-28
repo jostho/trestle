@@ -30,11 +30,12 @@
 
 - name: install packages
   become: yes
-  package: name={{ item }} state=present
-  with_items:
-    - jq
-    - tree
-    - sysstat
+  package:
+    state: present
+    name:
+      - jq
+      - tree
+      - sysstat
 
 - name: enable sysstat
   become: yes

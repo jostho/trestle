@@ -2,9 +2,10 @@
 # tasks file for worker
 - name: install packages
   become: yes
-  package: name={{ item }} state=present
-  with_items:
-    - nfs-common
+  package:
+    state: present
+    name:
+      - nfs-common
 
 - name: setup system directory
   become: yes

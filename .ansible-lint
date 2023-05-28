@@ -2,3 +2,5 @@
 skip_list:
   - fqcn-builtins
   - literal-compare
+  - name
+  - var-naming

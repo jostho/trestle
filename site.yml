@@ -5,34 +5,34 @@
 - hosts: all
 
   roles:
-  - common
+   - common
 
   tags:
-  - common
+   - common
 
 # client
 - hosts: client
 
   roles:
-  - client
+   - client
 
   tags:
-  - client
+   - client
 
 # master
 - hosts: master
 
   roles:
-  - master
+   - master
 
   tags:
-  - master
+   - master
 
 # worker
 - hosts: worker
 
   roles:
-  - worker
+   - worker
 
   tags:
-  - worker
+   - worker
