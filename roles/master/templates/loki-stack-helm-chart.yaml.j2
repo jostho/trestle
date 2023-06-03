@@ -32,11 +32,20 @@ metadata:
 spec:
   chart: loki
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 2.16.0
+  version: 5.6.1
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
-    podLabels:
-      deployer: {{ project_name }}
+    loki:
+      podLabels:
+        deployer: {{ project_name }}
+      auth_enabled: false
+      commonConfig:
+        replication_factor: 1
+      storage:
+        type: 'filesystem'
+    singleBinary:
+      replicas: 1
+
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
