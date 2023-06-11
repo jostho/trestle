@@ -32,7 +32,7 @@ metadata:
 spec:
   chart: loki
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 5.6.1
+  version: 5.6.4
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
     loki:
@@ -55,7 +55,7 @@ metadata:
 spec:
   chart: promtail
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 6.11.2
+  version: 6.11.3
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
     podLabels:
