@@ -5,8 +5,8 @@ tmp_location: /tmp/trestle
 nfs_location: /srv/nfs/trestle
 dns_suffix: trestle.local
 version:
-  k3s: v1.27.5+k3s1
-  kubectl: v1.27.5
+  k3s: v1.27.6+k3s1
+  kubectl: v1.27.6
   helm: v3.12.3
   argocd: v2.8.4
 metallb:
