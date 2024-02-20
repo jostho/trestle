@@ -8,7 +8,7 @@ version:
   k3s: v1.28.6+k3s2
   kubectl: v1.28.6
   helm: v3.13.3
-  argocd: v2.9.6
+  argocd: v2.10.1
 metallb:
   enabled: true
   target_namespace: metallb
