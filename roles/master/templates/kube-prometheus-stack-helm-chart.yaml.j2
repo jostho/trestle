@@ -35,3 +35,11 @@ spec:
         enabled: true
         hosts:
           - prometheus.{{ dns_suffix }}
+    alertmanager:
+      service:
+        type: LoadBalancer
+        loadBalancerIP: {{ metallb.lb_ip.alertmanager }}
+      ingress:
+        enabled: true
+        hosts:
+          - alertmanager.{{ dns_suffix }}
