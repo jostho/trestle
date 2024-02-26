@@ -1,6 +1,6 @@
 # Trestle
 
-![CI](https://github.com/jostho/trestle/workflows/CI/badge.svg)
+![CI](https://github.com/jostho/trestle/actions/workflows/ci.yml/badge.svg)
 
 This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kubernetes cluster using [ansible](https://github.com/ansible/ansible).
 
