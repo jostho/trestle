@@ -16,17 +16,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Print python version
-        run: python --version
-      - name: Install ansible lint
-        run: pip install ansible-lint ansible-core
-      - name: Print ansible-lint version
-        run: ansible-lint --version
       - name: Run yamllint
         run: yamllint .
       - name: Run ansible-lint
-        run: ansible-lint
+        uses: ansible/ansible-lint@v24
