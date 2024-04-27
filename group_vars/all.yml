@@ -5,10 +5,10 @@ tmp_location: /tmp/trestle
 nfs_location: /srv/nfs/trestle
 dns_suffix: trestle.local
 version:
-  k3s: v1.29.3+k3s1
-  kubectl: v1.29.3
-  helm: v3.14.3
-  argocd: v2.10.5
+  k3s: v1.29.4+k3s1
+  kubectl: v1.29.4
+  helm: v3.14.4
+  argocd: v2.10.8
 metallb:
   enabled: true
   target_namespace: metallb
