@@ -6,14 +6,14 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kuber
 
 ## Environment
 
-* fedora 39
-* libvirt 9.7
+* fedora 40
+* libvirt 10.1
 * python 3.12
 * ansible 2.16
 
 ## Setup VM
 
-Create `Ubuntu 22.04 LTS` VMs on localhost using `virt-install`.
+Create `Ubuntu 24.04 LTS` VMs on localhost using `virt-install`.
 Use a [autoinstall](https://ubuntu.com/server/docs/install/autoinstall-reference) file in cloud-init user-data to automate the VM provisioning.
 Setup password-less ssh login to all the VMs from the ansible control node. Update [hosts](hosts) file with the IP of the VMs.
 
