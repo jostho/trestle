@@ -6,12 +6,19 @@ metadata:
   labels:
     deployer: {{ project_name }}
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubernetes-dashboard-admin
+  namespace: {{ kubernetes_dashboard.target_namespace }}
+  labels:
+    deployer: {{ project_name }}
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: kubernetes-dashboard
+  name: kubernetes-dashboard-admin
   labels:
-    k8s-app: kubernetes-dashboard
     deployer: {{ project_name }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -19,8 +26,19 @@ roleRef:
   name: cluster-admin
 subjects:
 - kind: ServiceAccount
-  name: kubernetes-dashboard
+  name: kubernetes-dashboard-admin
   namespace: {{ kubernetes_dashboard.target_namespace }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-admin
+  namespace: {{ kubernetes_dashboard.target_namespace }}
+  labels:
+    deployer: {{ project_name }}
+  annotations:
+    kubernetes.io/service-account.name: "kubernetes-dashboard-admin"
+type: kubernetes.io/service-account-token
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
@@ -30,20 +48,10 @@ metadata:
 spec:
   chart: kubernetes-dashboard
   targetNamespace: {{ kubernetes_dashboard.target_namespace }}
-  version: 5.11.0
+  version: 7.5.0
   repo: https://kubernetes.github.io/dashboard/
   valuesContent: |-
-    extraArgs:
-      - --enable-skip-login
-      - --enable-insecure-login
-    protocolHttp: true
-    service:
-      type: LoadBalancer
-      externalPort: 80
-      loadBalancerIP: {{ metallb.lb_ip.kubernetes_dashboard }}
-    ingress:
-      enabled: true
-      hosts:
-        - kubernetes-dashboard.{{ dns_suffix }}
-    metricsScraper:
-      enabled: true
+    kong:
+      proxy:
+        type: LoadBalancer
+        loadBalancerIP: {{ metallb.lb_ip.kubernetes_dashboard }}
