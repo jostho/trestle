@@ -32,9 +32,10 @@ metadata:
 spec:
   chart: loki
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 5.47.2
+  version: 6.6.5
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
+    deploymentMode: SingleBinary
     loki:
       podLabels:
         deployer: {{ project_name }}
@@ -43,8 +44,23 @@ spec:
         replication_factor: 1
       storage:
         type: 'filesystem'
+      schemaConfig:
+        configs:
+        - from: "2024-01-01"
+          store: tsdb
+          index:
+            prefix: loki_index_
+            period: 24h
+          object_store: filesystem
+          schema: v13
     singleBinary:
       replicas: 1
+    read:
+      replicas: 0
+    backend:
+      replicas: 0
+    write:
+      replicas: 0
 
 ---
 apiVersion: helm.cattle.io/v1
@@ -55,7 +71,7 @@ metadata:
 spec:
   chart: promtail
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 6.15.5
+  version: 6.16.3
   repo: https://grafana.github.io/helm-charts
   valuesContent: |-
     podLabels:
