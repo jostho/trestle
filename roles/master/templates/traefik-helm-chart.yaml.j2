@@ -14,7 +14,7 @@ metadata:
 spec:
   chart: traefik
   targetNamespace: {{ traefik.target_namespace }}
-  version: 28.3.0
+  version: 30.0.2
   repo: https://traefik.github.io/charts
   valuesContent: |-
     logs:
@@ -40,6 +40,10 @@ spec:
       web:
         # route through haproxy
         nodePort: 32080
+    ingressRoute:
+      dashboard:
+        # enable dashboard
+        enabled: true
     service:
       spec:
         # specify metallb ip
