@@ -6,9 +6,9 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kuber
 
 ## Environment
 
-* fedora 40
-* libvirt 10.1
-* python 3.12
+* fedora 41
+* libvirt 10.6
+* python 3.13
 * ansible 2.16
 
 ## Setup VM
@@ -23,8 +23,8 @@ The VMs are created with the below configuration in my local setup
 | Role | Count | CPU | Memory | Disk | Description |
 | --- | --- | --- | --- | --- | --- |
 | client | 1 | 1 | 1200M | 12G | provides cli tools |
-| master | 1 | 1 | 2000M | 12G | k3s server host |
-| worker | 2 | 2 | 2000M | 12G | k3s agent hosts |
+| master | 1 | 1 | 2400M | 12G | k3s server host |
+| worker | 2 | 2 | 2400M | 16G | k3s agent hosts |
 
 ## Setup cluster
 
