@@ -66,16 +66,21 @@ spec:
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
-  name: promtail
+  name: fluent-bit
   namespace: kube-system
 spec:
-  chart: promtail
+  chart: fluent-bit
   targetNamespace: {{ monitoring.target_namespace }}
-  version: 6.16.6
-  repo: https://grafana.github.io/helm-charts
+  version: 0.48.9
+  repo: https://fluent.github.io/helm-charts
   valuesContent: |-
     podLabels:
       deployer: {{ project_name }}
     config:
-      clients:
-        - url: http://loki:3100/loki/api/v1/push
+      outputs: |
+          [OUTPUT]
+              name    loki
+              match    *
+              host    loki
+              labels    job=fluentbit
+              auto_kubernetes_labels    on
