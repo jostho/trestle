@@ -3,12 +3,12 @@ project_name: trestle
 token: trestletoken
 tmp_location: /tmp/trestle
 nfs_location: /srv/nfs/trestle
-dns_suffix: trestle.local
+dns_suffix: trestle.internal
 version:
-  k3s: v1.31.6+k3s1
-  kubectl: v1.31.6
+  k3s: v1.31.7+k3s1
+  kubectl: v1.31.7
   helm: v3.16.4
-  argocd: v2.14.7
+  argocd: v2.14.9
 metallb:
   enabled: true
   target_namespace: metallb
