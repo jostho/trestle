@@ -6,10 +6,10 @@ This project has sources to prepare a [k3s](https://github.com/k3s-io/k3s) kuber
 
 ## Environment
 
-* fedora 41
-* libvirt 10.6
+* fedora 42
+* libvirt 11.0
 * python 3.13
-* ansible 2.16
+* ansible 2.18
 
 ## Setup VM
 
